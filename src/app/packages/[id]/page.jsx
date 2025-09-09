@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '../../../components/Header';
@@ -9,9 +9,13 @@ const PackageDetails = ({ params }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showBookingForm, setShowBookingForm] = useState(false);
 
+  // params may be a Promise in newer Next.js versions — unwrap with React.use()
+  const resolvedParams = React.use(params);
+  const packageId = resolvedParams?.id || 1;
+
   // Mock data - in real app this would come from API/database
   const packageData = {
-    id: params?.id || 1,
+  id: packageId,
     name: 'Santorini Paradise',
     location: 'Santorini, Greece',
     price: 1299,
@@ -44,7 +48,7 @@ const PackageDetails = ({ params }) => {
   };
 
   const BookingForm = () => (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-2xl font-bold">Book Your Trip</h3>
@@ -99,7 +103,8 @@ const PackageDetails = ({ params }) => {
     <div>
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 py-8">
+  {/* add top padding to offset fixed header so breadcrumb is visible */}
+  <div className="max-w-7xl mx-auto px-4 pt-24 pb-8">
         {/* Breadcrumb */}
         <nav className="mb-8">
           <Link href="/" className="text-blue-600 hover:underline">Home</Link>
@@ -139,7 +144,10 @@ const PackageDetails = ({ params }) => {
 
             {/* Package Info */}
             <div className="mb-8">
-              <h1 className="text-4xl font-bold mb-4">{packageData.name}</h1>
+              <div className="flex items-center gap-3 mb-4">
+                <h1 className="text-4xl font-bold">{packageData.name}</h1>
+                <span className="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-lg">ID: {packageData.id}</span>
+              </div>
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center">
                   <span className="text-yellow-400 mr-1">★</span>
@@ -181,7 +189,7 @@ const PackageDetails = ({ params }) => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-30">
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-3xl font-bold text-blue-600">${packageData.price}</span>
@@ -193,7 +201,7 @@ const PackageDetails = ({ params }) => {
 
               <button 
                 onClick={() => setShowBookingForm(true)}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-semibold text-lg hover:scale-105 transition-transform shadow-lg mb-4"
+                className="w-full bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white py-4 rounded-xl font-semibold text-lg hover:scale-105 transition-transform shadow-lg mb-4"
               >
                 Book Now
               </button>

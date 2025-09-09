@@ -1,30 +1,12 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useContent, ContentProvider } from '../../context/ContentContext';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('packages');
-  const [packages, setPackages] = useState([
-    {
-      id: 1,
-      name: 'Santorini Paradise',
-      location: 'Santorini, Greece',
-      price: 1299,
-      duration: '7 Days',
-      image: '/destination1.jpg',
-      status: 'active'
-    },
-    {
-      id: 2,
-      name: 'Bali Adventure',
-      location: 'Bali, Indonesia',
-      price: 899,
-      duration: '10 Days',
-      image: '/destination2.jpg',
-      status: 'active'
-    }
-  ]);
+  const { siteContent, addPackage, updatePackage, deletePackage, updateSiteContent } = useContent();
 
   const [editingPackage, setEditingPackage] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -187,7 +169,7 @@ const AdminDashboard = () => {
             <div className="flex gap-4">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-6 py-2 rounded-lg transition-all"
               >
                 {pkg ? 'Update Package' : 'Create Package'}
               </button>
@@ -207,19 +189,17 @@ const AdminDashboard = () => {
 
   const handleSavePackage = (packageData) => {
     if (editingPackage) {
-      setPackages(packages.map(pkg => 
-        pkg.id === editingPackage.id ? { ...packageData, id: editingPackage.id } : pkg
-      ));
+      updatePackage(editingPackage.id, packageData);
       setEditingPackage(null);
     } else {
-      setPackages([...packages, { ...packageData, id: Date.now(), status: 'active' }]);
+      addPackage(packageData);
       setShowAddForm(false);
     }
   };
 
   const handleDeletePackage = (id) => {
     if (confirm('Are you sure you want to delete this package?')) {
-      setPackages(packages.filter(pkg => pkg.id !== id));
+      deletePackage(id);
     }
   };
 
@@ -229,14 +209,14 @@ const AdminDashboard = () => {
         <h2 className="text-2xl font-bold">Manage Packages</h2>
         <button
           onClick={() => setShowAddForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-4 py-2 rounded-lg transition-all"
         >
           + Add New Package
         </button>
       </div>
 
       <div className="grid gap-6">
-        {packages.map((pkg) => (
+        {(siteContent?.packages || []).map((pkg) => (
           <div key={pkg.id} className="bg-white rounded-lg shadow p-6 flex gap-4">
             <div className="relative w-24 h-24 rounded-lg overflow-hidden">
               <Image src={pkg.image} alt={pkg.name} fill className="object-cover" />
@@ -246,19 +226,29 @@ const AdminDashboard = () => {
               <p className="text-gray-600">{pkg.location}</p>
               <p className="text-lg font-semibold text-blue-600">${pkg.price} • {pkg.duration}</p>
             </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setEditingPackage(pkg)}
-                className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDeletePackage(pkg.id)}
-                className="bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200"
-              >
-                Delete
-              </button>
+            <div className="flex flex-col items-end gap-2">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setEditingPackage(pkg)}
+                  className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeletePackage(pkg.id)}
+                  className="bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200"
+                >
+                  Delete
+                </button>
+              </div>
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={pkg.status !== 'inactive'}
+                  onChange={(e) => updatePackage(pkg.id, { status: e.target.checked ? 'active' : 'inactive' })}
+                />
+                <span>{pkg.status !== 'inactive' ? 'Visible' : 'Hidden'}</span>
+              </label>
             </div>
           </div>
         ))}
@@ -270,7 +260,7 @@ const AdminDashboard = () => {
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Gallery Destinations</h2>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        <button className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-4 py-2 rounded-lg transition-all">
           + Add Destination
         </button>
       </div>
@@ -313,15 +303,42 @@ const AdminDashboard = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">Main Title</label>
-              <input type="text" defaultValue="Discover Paradise" className="w-full border rounded-lg px-3 py-2" />
+              <input
+                type="text"
+                value={siteContent?.hero?.title || ''}
+                onChange={(e) => updateSiteContent('hero', { title: e.target.value })}
+                className="w-full border rounded-lg px-3 py-2"
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Subtitle</label>
-              <input type="text" defaultValue="Make Your Travel Dreams Come True" className="w-full border rounded-lg px-3 py-2" />
+              <input
+                type="text"
+                value={siteContent?.hero?.subtitle || ''}
+                onChange={(e) => updateSiteContent('hero', { subtitle: e.target.value })}
+                className="w-full border rounded-lg px-3 py-2"
+              />
             </div>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-              Update Hero Section
-            </button>
+            <div>
+              <label className="block text-sm font-medium mb-2">Description</label>
+              <textarea
+                value={siteContent?.hero?.description || ''}
+                onChange={(e) => updateSiteContent('hero', { description: e.target.value })}
+                rows={3}
+                className="w-full border rounded-lg px-3 py-2"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={siteContent?.hero?.visible !== false}
+                  onChange={(e) => updateSiteContent('hero', { visible: e.target.checked })}
+                />
+                <span className="text-sm">Show Hero Section</span>
+              </label>
+              <button className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-4 py-2 rounded-lg transition-all" onClick={() => alert('Hero section updated')}>Update Hero Section</button>
+            </div>
           </div>
         </div>
 
@@ -330,19 +347,42 @@ const AdminDashboard = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">Company Name</label>
-              <input type="text" defaultValue="Dream Holidays" className="w-full border rounded-lg px-3 py-2" />
+              <input
+                type="text"
+                value={siteContent?.company?.name || ''}
+                onChange={(e) => updateSiteContent('company', { name: e.target.value })}
+                className="w-full border rounded-lg px-3 py-2"
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Contact Email</label>
-              <input type="email" defaultValue="info@dreamholidays.com" className="w-full border rounded-lg px-3 py-2" />
+              <input
+                type="email"
+                value={siteContent?.company?.email || ''}
+                onChange={(e) => updateSiteContent('company', { email: e.target.value })}
+                className="w-full border rounded-lg px-3 py-2"
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-2">Phone Number</label>
-              <input type="tel" defaultValue="+1 (555) 123-4567" className="w-full border rounded-lg px-3 py-2" />
+              <input
+                type="tel"
+                value={siteContent?.company?.phone || ''}
+                onChange={(e) => updateSiteContent('company', { phone: e.target.value })}
+                className="w-full border rounded-lg px-3 py-2"
+              />
             </div>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-              Update Company Info
-            </button>
+            <div className="flex items-center gap-4">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={siteContent?.company?.visible !== false}
+                  onChange={(e) => updateSiteContent('company', { visible: e.target.checked })}
+                />
+                <span className="text-sm">Show Company Info</span>
+              </label>
+              <button className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-4 py-2 rounded-lg transition-all" onClick={() => alert('Company info updated')}>Update Company Info</button>
+            </div>
           </div>
         </div>
       </div>
@@ -451,4 +491,10 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+const AdminWrapper = () => (
+  <ContentProvider>
+    <AdminDashboard />
+  </ContentProvider>
+);
+
+export default AdminWrapper;

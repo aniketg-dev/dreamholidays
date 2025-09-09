@@ -82,7 +82,7 @@ const SearchResults = () => {
     <div>
       <Header />
       
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 pt-24">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">Search Results</h1>
           <p className="text-xl opacity-90">
@@ -98,7 +98,7 @@ const SearchResults = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="lg:w-1/4">
-            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+            <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-30">
               <h3 className="text-xl font-bold mb-6">Filter Results</h3>
               
               {/* Price Range */}

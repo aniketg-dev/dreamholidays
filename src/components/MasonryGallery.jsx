@@ -113,7 +113,7 @@ const MasonryGallery = () => {
 
                 {/* Decorative Element */}
                 <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                  <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
+                  <div className="w-12 h-1 bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -123,7 +123,7 @@ const MasonryGallery = () => {
         {/* Bottom CTA */}
         <div className="text-center mt-16">
           <p className="text-lg text-gray-600 mb-6">Ready to explore these amazing destinations?</p>
-          <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+          <button className="bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
             View All Destinations
           </button>
         </div>

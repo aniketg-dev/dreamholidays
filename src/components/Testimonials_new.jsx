@@ -8,7 +8,7 @@ const testimonials = [
     id: 1,
     name: 'Aisha K.',
     text: 'Our trip was flawless. Dream Holidays took care of everything and exceeded expectations.',
-    image: '/testimonials/test1.jpeg',
+    image: '/destination1.jpg',
     location: 'Santorini, Greece',
     rating: 5
   },
@@ -16,7 +16,7 @@ const testimonials = [
     id: 2,
     name: 'Carlos M.',
     text: 'Amazing service and great value. Will book again!',
-    image: '/testimonials/test2.jpg',
+    image: '/destination2.jpg',
     location: 'Bali, Indonesia',
     rating: 5
   },
@@ -24,7 +24,7 @@ const testimonials = [
     id: 3,
     name: 'Priya S.',
     text: 'Beautifully planned itinerary and friendly guides. Highly recommend.',
-    image: '/testimonials/test3.jpg',
+    image: '/destination3.jpg',
     location: 'Swiss Alps',
     rating: 5
   }
@@ -65,7 +65,7 @@ const Testimonials = () => {
         {[...Array(5)].map((_, i) => (
           <svg
             key={i}
-            className={`w-5 h-5 ${i < rating ? 'text-amber-400' : 'text-gray-300'}`}
+            className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -77,22 +77,22 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-800">What Travelers Say</h2>
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">What Travelers Say</h2>
         
         <div className="relative">
           {/* Carousel Container */}
-          <div className="overflow-hidden rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl border border-white/20">
+          <div className="overflow-hidden rounded-lg shadow-xl">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {testimonials.map((testimonial, index) => (
                 <div key={testimonial.id} className="min-w-full">
-                  <div className="flex flex-col lg:flex-row bg-gradient-to-r from-white to-blue-50/50">
+                  <div className="flex flex-col lg:flex-row bg-white">
                     {/* Image Section */}
-                    <div className="lg:w-1/2 relative h-48 sm:h-64 lg:h-96">
+                    <div className="lg:w-1/2 relative h-64 lg:h-96">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.location}
@@ -100,24 +100,24 @@ const Testimonials = () => {
                         className="object-cover"
                         priority={index === 0}
                       />
-                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg">
+                      <div className="absolute bottom-4 left-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded-full text-sm">
                         {testimonial.location}
                       </div>
                     </div>
                     
                     {/* Content Section */}
-                    <div className="lg:w-1/2 p-6 sm:p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/50">
+                    <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
                       <StarRating rating={testimonial.rating} />
                       
-                      <blockquote className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 sm:mb-6 text-center lg:text-left leading-relaxed font-medium">
+                      <blockquote className="text-lg lg:text-xl text-gray-700 mb-6 text-center lg:text-left leading-relaxed">
                         "{testimonial.text}"
                       </blockquote>
                       
                       <div className="text-center lg:text-left">
-                        <div className="font-bold text-gray-800 text-base sm:text-lg">
+                        <div className="font-semibold text-gray-900 text-lg">
                           {testimonial.name}
                         </div>
-                        <div className="text-xs sm:text-sm text-blue-600 font-medium mt-1">
+                        <div className="text-sm text-gray-500 mt-1">
                           Verified Traveler
                         </div>
                       </div>
@@ -131,33 +131,33 @@ const Testimonials = () => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white p-2 sm:p-3 rounded-full shadow-lg transition-all hover:shadow-xl hover:scale-105 z-10"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-800 p-3 rounded-full shadow-lg transition-all hover:shadow-xl z-10"
             aria-label="Previous testimonial"
           >
-            <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           
           <button
             onClick={goToNext}
-            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white p-2 sm:p-3 rounded-full shadow-lg transition-all hover:shadow-xl hover:scale-105 z-10"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 text-gray-800 p-3 rounded-full shadow-lg transition-all hover:shadow-xl z-10"
             aria-label="Next testimonial"
           >
-            <svg className="w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-6 sm:mt-8 space-x-2 sm:space-x-3">
+          <div className="flex justify-center mt-8 space-x-3">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
+                className={`w-3 h-3 rounded-full transition-all ${
                   index === currentIndex 
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 scale-125' 
+                    ? 'bg-blue-600' 
                     : 'bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}

@@ -15,15 +15,17 @@ export const useContent = () => {
 export const ContentProvider = ({ children }) => {
   const [siteContent, setSiteContent] = useState({
     hero: {
-      title: 'Discover Paradise',
-      subtitle: 'Make Your Travel Dreams Come True',
-      description: 'Experience breathtaking destinations with our carefully crafted travel packages'
+  title: 'Discover Paradise',
+  subtitle: 'Make Your Travel Dreams Come True',
+  description: 'Experience breathtaking destinations with our carefully crafted travel packages',
+  visible: true
     },
     company: {
-      name: 'Dream Holidays',
-      email: 'info@dreamholidays.com',
-      phone: '+1 (555) 123-4567',
-      address: '123 Travel Street, Adventure City, AC 12345'
+  name: 'Dream Holidays',
+  email: 'info@dreamholidays.com',
+  phone: '+1 (555) 123-4567',
+  address: '123 Travel Street, Adventure City, AC 12345',
+  visible: true
     },
     packages: [
       {
@@ -36,8 +38,8 @@ export const ContentProvider = ({ children }) => {
         rating: 4.9,
         reviews: 124,
         maxPeople: 8,
-        image: '/destination1.jpg',
-        images: ['/destination1.jpg', '/destination2.jpg', '/destination3.jpg'],
+        image: '/gallery/image1.jpeg',
+        images: ['/gallery/image1.jpeg', '/gallery/image2.jpg', '/gallery/image3.jpg'],
         description: 'Experience the breathtaking beauty of Santorini with its iconic white buildings, blue domes, and stunning sunsets over the Aegean Sea.',
         highlights: [
           'Luxury oceanview accommodation',
@@ -72,8 +74,8 @@ export const ContentProvider = ({ children }) => {
         rating: 4.7,
         reviews: 98,
         maxPeople: 12,
-        image: '/destination2.jpg',
-        images: ['/destination2.jpg', '/destination1.jpg', '/destination3.jpg'],
+        image: '/gallery/image2.jpg',
+        images: ['/gallery/image2.jpg', '/gallery/image1.jpeg', '/gallery/image3.jpg'],
         description: 'Discover the magic of Bali with its beautiful beaches, ancient temples, lush rice terraces, and vibrant cultural experiences.',
         highlights: [
           'Beachfront resort accommodation',
@@ -106,8 +108,8 @@ export const ContentProvider = ({ children }) => {
         rating: 4.9,
         reviews: 87,
         maxPeople: 6,
-        image: '/destination3.jpg',
-        images: ['/destination3.jpg', '/destination1.jpg', '/destination2.jpg'],
+        image: '/gallery/image3.jpg',
+        images: ['/gallery/image3.jpg', '/gallery/image1.jpeg', '/gallery/image2.jpg'],
         description: 'Adventure awaits in the majestic Swiss Alps with pristine mountain lakes, snow-capped peaks, and charming alpine villages.',
         highlights: [
           'Mountain lodge accommodation',
