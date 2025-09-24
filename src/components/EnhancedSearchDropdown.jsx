@@ -2,14 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useContent } from '../context/ContentContext';
 
 const EnhancedSearchDropdown = () => {
   const [selectedDestination, setSelectedDestination] = useState('');
   const [selectedSector, setSelectedSector] = useState('');
   const [isDestinationOpen, setIsDestinationOpen] = useState(false);
   const [isSectorOpen, setIsSectorOpen] = useState(false);
-  const router = useRouter();
   const dropdownRef = useRef(null);
+  const router = useRouter();
+  const { siteContent } = useContent();
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -21,12 +23,7 @@ const EnhancedSearchDropdown = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   // Close dropdowns on escape key
@@ -42,67 +39,57 @@ const EnhancedSearchDropdown = () => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, []);
 
-  const destinations = [
-    { 
-      id: 1, 
-      name: 'Santorini, Greece', 
-      country: 'Greece', 
-      packages: 5,
-      sectors: ['Beaches', 'Historical Sites', 'Luxury Resorts', 'Wine Tours']
-    },
-    { 
-      id: 2, 
-      name: 'Bali, Indonesia', 
-      country: 'Indonesia', 
-      packages: 8,
-      sectors: ['Beaches', 'Temples', 'Adventure Sports', 'Wellness Retreats']
-    },
-    { 
-      id: 3, 
-      name: 'Swiss Alps, Switzerland', 
-      country: 'Switzerland', 
-      packages: 3,
-      sectors: ['Mountain Adventures', 'Skiing', 'Hiking', 'Scenic Railways']
-    },
-    { 
-      id: 4, 
-      name: 'Maldives', 
-      country: 'Maldives', 
-      packages: 6,
-      sectors: ['Luxury Resorts', 'Water Sports', 'Spa & Wellness', 'Private Islands']
-    },
-    { 
-      id: 5, 
-      name: 'Paris, France', 
-      country: 'France', 
-      packages: 12,
-      sectors: ['Cultural Tours', 'Art & Museums', 'Cuisine', 'Fashion & Shopping']
-    },
-    { 
-      id: 6, 
-      name: 'Tokyo, Japan', 
-      country: 'Japan', 
-      packages: 7,
-      sectors: ['Cultural Experiences', 'Technology Tours', 'Cuisine', 'Traditional Arts']
-    },
-    { 
-      id: 7, 
-      name: 'Dubai, UAE', 
-      country: 'UAE', 
-      packages: 9,
-      sectors: ['Luxury Shopping', 'Desert Safari', 'Modern Architecture', 'Adventure Parks']
-    },
-    { 
-      id: 8, 
-      name: 'New York, USA', 
-      country: 'USA', 
-      packages: 15,
-      sectors: ['City Tours', 'Broadway Shows', 'Museums', 'Shopping']
-    },
-  ];
+  // Generate destinations from actual packages data
+  const getDestinationsFromPackages = () => {
+    if (!siteContent?.packages) return [];
+    
+    const destinationMap = new Map();
+    
+    siteContent.packages
+      .filter(pkg => pkg.status === 'active')
+      .forEach(pkg => {
+        const key = pkg.location;
+        if (destinationMap.has(key)) {
+          const existing = destinationMap.get(key);
+          existing.packages += 1;
+        } else {
+          // Extract country from location (assuming format "City, Country")
+          const parts = pkg.location.split(',');
+          const country = parts.length > 1 ? parts[parts.length - 1].trim() : parts[0];
+          
+          destinationMap.set(key, {
+            id: destinationMap.size + 1,
+            name: pkg.location,
+            country: country,
+            packages: 1,
+            sectors: [pkg.category] // Use category as sector
+          });
+        }
+      });
+
+    return Array.from(destinationMap.values());
+  };
+
+  const destinations = getDestinationsFromPackages();
+
+  // Get unique sectors from all packages
+  const getAllSectors = () => {
+    if (!siteContent?.packages) return [];
+    
+    const sectorsSet = new Set();
+    siteContent.packages
+      .filter(pkg => pkg.status === 'active')
+      .forEach(pkg => {
+        if (pkg.category) {
+          sectorsSet.add(pkg.category);
+        }
+      });
+    
+    return Array.from(sectorsSet);
+  };
 
   const selectedDestinationData = destinations.find(dest => dest.name === selectedDestination);
-  const availableSectors = selectedDestinationData ? selectedDestinationData.sectors : [];
+  const availableSectors = selectedDestinationData ? selectedDestinationData.sectors : getAllSectors();
 
   const handleDestinationSelect = (destination) => {
     setSelectedDestination(destination.name);
@@ -121,6 +108,7 @@ const EnhancedSearchDropdown = () => {
         destination: selectedDestination,
         sector: selectedSector || 'all'
       });
+      
       router.push(`/search?${searchParams.toString()}`);
     }
   };
@@ -136,46 +124,39 @@ const EnhancedSearchDropdown = () => {
             <h2 className="text-2xl sm:text-3xl font-bold">Holiday</h2>
             <div className="mt-2 flex justify-center md:justify-start">
               {/* Holiday Icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 sm:w-10 sm:h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M6.05 6.05L4.636 4.636m12.728 0L16.95 6.05M6.05 17.95l-1.414 1.414M9 17h6m-6-4h6" />
+              <svg className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2L3 7v11a1 1 0 001 1h3v-5a1 1 0 011-1h4a1 1 0 011 1v5h3a1 1 0 001-1V7l-7-5z"/>
               </svg>
             </div>
           </div>
         </div>
-        
-        <div className="flex-1 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 sm:p-6 bg-white rounded-b-lg md:rounded-r-lg md:rounded-bl-none">
-          
-          {/* Destination Dropdown */}
-          <div className="relative flex-1 min-w-0">
-            <label className="block text-xs font-semibold text-gray-700 mb-2">
-              Choose Destination
-            </label>
+
+        <div className="flex-1 p-4 sm:p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
+            
+            {/* Destination Dropdown */}
             <div className="relative">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Where to?</label>
               <button
                 onClick={() => {
                   setIsDestinationOpen(!isDestinationOpen);
-                  setIsSectorOpen(false); // Close other dropdown
+                  setIsSectorOpen(false);
                 }}
-                className="w-full bg-white border-2 border-gray-200 rounded-lg px-3 py-3 sm:py-2 text-left focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all hover:border-blue-300 text-sm min-h-[44px] touch-manipulation"
+                className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 sm:px-4 py-3 sm:py-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all hover:bg-gray-100 min-h-[44px] touch-manipulation"
                 type="button"
               >
-                <span className={`block pr-8 ${selectedDestination ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                  {selectedDestination || 'Select destination'}
-                </span>
-                <svg
-                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-transform text-gray-400 ${
-                    isDestinationOpen ? 'rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <div className="flex justify-between items-center">
+                  <span className={`text-sm sm:text-base ${selectedDestination ? 'text-gray-900' : 'text-gray-500'}`}>
+                    {selectedDestination || 'Select destination'}
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </button>
-              
-              {isDestinationOpen && (
-                <div className="absolute z-[60] w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl max-h-80 overflow-y-auto left-0 right-0">
+
+              {isDestinationOpen && destinations.length > 0 && (
+                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                   {destinations.map((destination) => (
                     <button
                       key={destination.id}
@@ -197,65 +178,64 @@ const EnhancedSearchDropdown = () => {
                 </div>
               )}
             </div>
-          </div>
 
-          {/* Sector Dropdown */}
-          <div className="relative flex-1 min-w-0">
-            <label className="block text-xs font-semibold text-gray-700 mb-2">
-              Choose Sector
-            </label>
+            {/* Sector Dropdown */}
             <div className="relative">
+              <label className="block text-sm font-medium text-gray-700 mb-2">What type?</label>
               <button
                 onClick={() => {
                   setIsSectorOpen(!isSectorOpen);
-                  setIsDestinationOpen(false); // Close other dropdown
+                  setIsDestinationOpen(false);
                 }}
-                disabled={!selectedDestination}
-                className="w-full bg-white border-2 border-gray-200 rounded-lg px-3 py-3 sm:py-2 text-left focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all hover:border-blue-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm min-h-[44px] touch-manipulation"
+                className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 sm:px-4 py-3 sm:py-4 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all hover:bg-gray-100 min-h-[44px] touch-manipulation"
                 type="button"
               >
-                <span className={`block pr-8 ${selectedSector ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
-                  {selectedSector || (selectedDestination ? 'Select sector' : 'Choose destination first')}
-                </span>
-                <svg
-                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-transform text-gray-400 ${
-                    isSectorOpen ? 'rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <div className="flex justify-between items-center">
+                  <span className={`text-sm sm:text-base ${selectedSector ? 'text-gray-900' : 'text-gray-500'}`}>
+                    {selectedSector || 'Select type'}
+                  </span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </button>
-              
+
               {isSectorOpen && availableSectors.length > 0 && (
-                <div className="absolute z-[60] w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl max-h-60 overflow-y-auto left-0 right-0">
+                <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                   {availableSectors.map((sector, index) => (
                     <button
                       key={index}
                       onClick={() => handleSectorSelect(sector)}
-                      className="w-full px-4 sm:px-6 py-3 text-left hover:bg-blue-50 focus:bg-blue-50 focus:outline-none transition-colors border-b border-gray-100 last:border-b-0 min-h-[44px] touch-manipulation"
+                      className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left hover:bg-blue-50 focus:bg-blue-50 focus:outline-none transition-colors border-b border-gray-100 last:border-b-0 text-sm sm:text-base min-h-[44px] touch-manipulation"
                       type="button"
                     >
-                      <div className="font-medium text-gray-900 text-sm sm:text-base">{sector}</div>
+                      {sector}
                     </button>
                   ))}
                 </div>
               )}
             </div>
-          </div>
-          
-          {/* Search Button */}
-          <div className="flex-shrink-0 lg:mt-6">
-            <button
-              onClick={handleSearch}
-              disabled={!selectedDestination}
-              className="w-full lg:w-auto bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 disabled:hover:scale-100 shadow-lg text-sm min-h-[44px] touch-manipulation"
-              type="button"
-            >
-              Search Holidays
-            </button>
+
+            {/* Date Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">When?</label>
+              <input
+                type="date"
+                className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 sm:px-4 py-3 sm:py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base min-h-[44px]"
+              />
+            </div>
+
+            {/* Search Button */}
+            <div className="flex items-end">
+              <button
+                onClick={handleSearch}
+                disabled={!selectedDestination}
+                className="w-full lg:w-auto bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 hover:from-red-600 hover:via-orange-600 hover:to-yellow-600 disabled:from-gray-300 disabled:to-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 disabled:hover:scale-100 shadow-lg text-sm min-h-[44px] touch-manipulation"
+                type="button"
+              >
+                Search Holidays
+              </button>
+            </div>
           </div>
         </div>
       </div>

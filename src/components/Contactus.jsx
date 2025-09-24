@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useContent } from '../context/ContentContext';
 
 const ContactForm = () => {
+  const { siteContent } = useContent();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,9 +49,9 @@ const ContactForm = () => {
     <section className="py-12 bg-white text-black">
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold mb-4">Contact Us</h3>
+          <h3 className="text-3xl font-bold mb-4">{siteContent?.contact?.title || 'Contact Us'}</h3>
           <p className="text-gray-600 mb-6">
-            Have questions about your dream holiday? Get in touch with us!
+            {siteContent?.contact?.subtitle || 'Have questions about your dream holiday? Get in touch with us!'}
           </p>
         </div>
 

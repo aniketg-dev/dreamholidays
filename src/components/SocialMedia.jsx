@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
+import { useContent } from '../context/ContentContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faInstagram, 
@@ -20,85 +21,17 @@ import {
 const SocialMedia = () => {
   const [activeTab, setActiveTab] = useState('instagram');
   const carouselRef = useRef(null);
+  const { siteContent } = useContent();
 
-  // Mock social media posts data
-  const socialPosts = {
-    instagram: [
-      {
-        id: 1,
-        platform: 'instagram',
-        author: '@dreamholidays',
-        time: '2 hours ago',
-        image: '/destination1.jpg',
-        caption: 'Paradise found! 🏝️ This stunning beach in Maldives is calling your name. Who\'s ready for crystal clear waters and white sandy beaches?',
-        likes: 1247,
-        comments: 89
-      },
-      {
-        id: 2,
-        platform: 'instagram',
-        author: '@dreamholidays',
-        time: '1 day ago',
-        image: '/destination2.jpg',
-        caption: 'Mountain adventures await! 🏔️ Experience the breathtaking views of Swiss Alps with our exclusive packages.',
-        likes: 892,
-        comments: 45
-      },
-      {
-        id: 3,
-        platform: 'instagram',
-        author: '@dreamholidays',
-        time: '3 days ago',
-        image: '/destination3.jpg',
-        caption: 'City lights and urban delights ✨ Discover the magic of Tokyo with our guided tours and local experiences.',
-        likes: 1567,
-        comments: 123
-      }
-    ],
-    facebook: [
-      {
-        id: 4,
-        platform: 'facebook',
-        author: 'Dream Holidays',
-        time: '4 hours ago',
-        content: 'Just helped the Johnson family plan their dream European vacation! 🇪🇺 From romantic Paris evenings to the canals of Venice, every moment was perfectly crafted. Ready to plan your next adventure?',
-        likes: 234,
-        comments: 18,
-        shares: 12
-      },
-      {
-        id: 5,
-        platform: 'facebook',
-        author: 'Dream Holidays',
-        time: '2 days ago',
-        content: 'Travel Tip Tuesday! 💡 Did you know that booking flights on Tuesday can save you up to 20%? Our travel experts are here to help you find the best deals for your dream destination.',
-        likes: 189,
-        comments: 34,
-        shares: 8
-      }
-    ],
-    twitter: [
-      {
-        id: 6,
-        platform: 'twitter',
-        author: '@dreamholidays',
-        time: '30 minutes ago',
-        content: 'Flash Sale Alert! 🚨 50% off on Bali packages for the next 24 hours only! Limited spots available. Book now and thank us later! #TravelDeals #Bali #DreamHolidays',
-        likes: 456,
-        retweets: 123,
-        comments: 67
-      },
-      {
-        id: 7,
-        platform: 'twitter',
-        author: '@dreamholidays',
-        time: '6 hours ago',
-        content: 'Customer spotlight: "Dream Holidays made our honeymoon absolutely perfect! Every detail was taken care of." - Sarah & Mike ❤️ #CustomerLove #Honeymoon',
-        likes: 289,
-        retweets: 45,
-        comments: 23
-      }
-    ]
+  if (!siteContent.social?.visible) {
+    return null;
+  }
+
+  // Get dynamic social media posts
+  const socialPosts = siteContent.social?.posts || {
+    instagram: [],
+    facebook: [],
+    twitter: []
   };
 
   const tabButtons = [
@@ -230,11 +163,10 @@ const SocialMedia = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Follow Our <span className="text-blue-600">Travel Journey</span>
+            {siteContent.social?.title || 'Follow Our Travel Journey'}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Stay connected with our latest travel adventures, destination highlights, and exclusive offers 
-            through our social media posts.
+            {siteContent.social?.subtitle || 'Stay connected with our latest travel adventures, destination highlights, and exclusive offers through our social media posts.'}
           </p>
         </div>
 
@@ -283,9 +215,24 @@ const SocialMedia = () => {
             className="flex overflow-x-auto scrollbar-hide space-x-6 pb-4 px-12"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {activeTab === 'instagram' && socialPosts.instagram.map(renderInstagramPost)}
-            {activeTab === 'facebook' && socialPosts.facebook.map(renderFacebookPost)}
-            {activeTab === 'twitter' && socialPosts.twitter.map(renderTwitterPost)}
+            {activeTab === 'instagram' && socialPosts.instagram.length > 0 && socialPosts.instagram.map(renderInstagramPost)}
+            {activeTab === 'facebook' && socialPosts.facebook.length > 0 && socialPosts.facebook.map(renderFacebookPost)}
+            {activeTab === 'twitter' && socialPosts.twitter.length > 0 && socialPosts.twitter.map(renderTwitterPost)}
+            
+            {/* No posts message */}
+            {((activeTab === 'instagram' && socialPosts.instagram.length === 0) ||
+              (activeTab === 'facebook' && socialPosts.facebook.length === 0) ||
+              (activeTab === 'twitter' && socialPosts.twitter.length === 0)) && (
+              <div className="w-full text-center py-12">
+                <div className="text-gray-400 mb-4">
+                  <svg className="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-600 mb-2">No {activeTab} posts yet</h3>
+                <p className="text-gray-500">Posts will appear here once added through the admin panel.</p>
+              </div>
+            )}
           </div>
         </div>
 

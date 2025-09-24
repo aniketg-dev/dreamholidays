@@ -1,0 +1,159 @@
+/* Hero Slides Management Styles */
+.hero-slide-card {
+  transition: all 0.3s ease;
+}
+
+.hero-slide-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.slide-form-overlay {
+  backdrop-filter: blur(5px);
+}
+
+.image-preview {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.image-preview img {
+  transition: transform 0.3s ease;
+}
+
+.image-preview:hover img {
+  transform: scale(1.05);
+}
+
+.gradient-preview {
+  height: 20px;
+  border-radius: 4px;
+  background: var(--gradient);
+}
+
+/* Admin panel improvements */
+.admin-tab {
+  transition: all 0.2s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.admin-tab:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.admin-tab.active {
+  background-color: rgb(59, 130, 246);
+  color: white;
+}
+
+.form-input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: rgb(59, 130, 246);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.btn-primary {
+  background-color: rgb(59, 130, 246);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: rgb(37, 99, 235);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-secondary {
+  background-color: rgb(107, 114, 128);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgb(75, 85, 99);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: rgb(239, 68, 68);
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: rgb(220, 38, 38);
+  transform: translateY(-1px);
+}
+
+.slide-indicator {
+  transition: all 0.3s ease;
+}
+
+.slide-indicator.active {
+  transform: scale(1.2);
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Drag and drop styles */
+.drag-over {
+  background-color: rgba(59, 130, 246, 0.1);
+  border: 2px dashed rgb(59, 130, 246);
+}
+
+.slide-preview {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.slide-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient);
+}
+
+.slide-preview-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 1rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}

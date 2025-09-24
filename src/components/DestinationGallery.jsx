@@ -1,7 +1,10 @@
 import Image from 'next/image';
+import { useContent } from '../context/ContentContext';
 
 const DestinationGallery = () => {
-  const destinations = [
+  const { siteContent } = useContent();
+  
+  const defaultDestinations = [
     {
       id: 1,
       name: 'Santorini',
@@ -24,7 +27,7 @@ const DestinationGallery = () => {
       id: 3,
       name: 'Swiss Alps',
       country: 'Switzerland',
-      image: '/destination3.jpg',
+      image: '/gallery/image3.jpg',
       tagline: 'Mountain Majesty',
       size: 'medium',
       position: 'col-span-1 row-span-1'
@@ -33,7 +36,7 @@ const DestinationGallery = () => {
       id: 4,
       name: 'Maldives',
       country: 'Maldives',
-      image: '/gallery/image3.jpg', // Using placeholder
+      image: '/gallery/image4.jpg',
       tagline: 'Crystal Clear Waters',
       size: 'small',
       position: 'col-span-1 row-span-1'
@@ -42,21 +45,28 @@ const DestinationGallery = () => {
       id: 5,
       name: 'Paris',
       country: 'France',
-      image: '/gallery/image4.jpg', // Using placeholder
+      image: '/gallery/image5.jpg',
       tagline: 'City of Love',
       size: 'small',
       position: 'col-span-1 row-span-1'
-    },
-    {
-      id: 6,
-      name: 'Tokyo',
-      country: 'Japan',
-      image: '/gallery/image5.jpg', // Using placeholder
-      tagline: 'Modern Traditions',
-      size: 'medium',
-      position: 'col-span-2 row-span-1'
     }
   ];
+
+  // Use gallery images from context if available, otherwise use default
+  const galleryImages = siteContent?.gallery?.images || [];
+  const destinations = galleryImages.length > 0 
+    ? galleryImages.map((img, index) => ({
+        id: img.id || index + 1,
+        name: img.alt || `Destination ${index + 1}`,
+        country: 'Beautiful Location',
+        image: img.src,
+        tagline: 'Amazing Experience',
+        size: index === 0 ? 'large' : index === 1 ? 'medium' : 'small',
+        position: index === 0 ? 'col-span-2 row-span-2' : 
+                 index === 1 ? 'col-span-1 row-span-2' : 
+                 'col-span-1 row-span-1'
+      }))
+    : defaultDestinations;
 
   return (
     <section className="py-20 bg-white">
@@ -64,10 +74,10 @@ const DestinationGallery = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Explore Amazing Destinations
+            {siteContent?.gallery?.title || 'Explore Amazing Destinations'}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Discover breathtaking locations around the world, each offering unique experiences and unforgettable memories
+            {siteContent?.gallery?.subtitle || 'Discover breathtaking locations around the world, each offering unique experiences and unforgettable memories'}
           </p>
         </div>
 

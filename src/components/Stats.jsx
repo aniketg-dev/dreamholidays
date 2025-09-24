@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useContent } from '../context/ContentContext';
 
 // Custom hook for counter animation
 const useCountUp = (endValue, duration = 2000, isVisible = false) => {
@@ -67,12 +68,13 @@ const useIntersectionObserver = (threshold = 0.3) => {
 
 const Stats = () => {
   const [ref, isVisible] = useIntersectionObserver(0.3);
+  const { siteContent } = useContent();
 
   const stats = [
     { 
       id: 1, 
-      label: 'Amazing Destinations', 
-      value: 120, 
+      label: 'Destinations Served', 
+      value: siteContent?.stats?.destinationsServed || 150, 
       suffix: '+',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,9 +86,9 @@ const Stats = () => {
     },
     { 
       id: 2, 
-      label: 'Happy Travelers', 
-      value: 15, 
-      suffix: 'k+',
+      label: 'Happy Customers', 
+      value: siteContent?.stats?.happyCustomers || 10000, 
+      suffix: '+',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
@@ -96,15 +98,27 @@ const Stats = () => {
     },
     { 
       id: 3, 
-      label: 'Countries Worldwide', 
-      value: 45, 
+      label: 'Years Experience', 
+      value: siteContent?.stats?.yearsExperience || 15, 
       suffix: '+',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
       gradient: 'from-orange-500 to-red-600'
+    },
+    { 
+      id: 4, 
+      label: 'Tours Completed', 
+      value: siteContent?.stats?.toursCompleted || 5000, 
+      suffix: '+',
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+      ),
+      gradient: 'from-purple-500 to-pink-600'
     }
   ];
 
@@ -129,7 +143,7 @@ const Stats = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12">
           {stats.map((s, index) => {
             const count = useCountUp(s.value, 2500, isVisible);
             

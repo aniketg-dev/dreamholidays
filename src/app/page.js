@@ -35,14 +35,14 @@ export default function Home() {
 }
 
 function InnerApp() {
-  const { siteContent } = useContent();
+  const { siteContent, getVisibleHeroSlides } = useContent();
 
   return (
     <div className="font-sans">
       <Header />
 
       {/* Enhanced Hero Section */}
-      {siteContent?.hero?.visible !== false && <EnhancedHero />}
+      {getVisibleHeroSlides().length > 0 && <EnhancedHero />}
 
       {/* <main> */}
       <FeaturedPackages packages={siteContent?.packages || []} />

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContent } from '../context/ContentContext';
 
 const DestinationCard = ({ destination }) => {
   return (
@@ -118,40 +119,26 @@ const PopularDestinations = () => {
 };
 
 const WhyChooseUs = () => {
-  const features = [
+  const { siteContent } = useContent();
+  
+  const features = siteContent?.whyChoose?.features || [
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
+      icon: '🆘',
       title: '24/7 Support',
       description: 'Round-the-clock customer support to assist you throughout your journey'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
+      icon: '💰',
       title: 'Best Price Guarantee',
       description: 'We offer the most competitive prices with no hidden fees'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
+      icon: '🎯',
       title: 'Expert Planning',
       description: 'Our travel experts create personalized itineraries just for you'
     },
     {
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-      ),
+      icon: '❤️',
       title: 'Memorable Experiences',
       description: 'Creating unforgettable moments that last a lifetime'
     }
@@ -162,17 +149,17 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Why Choose Dream Holidays?
+            {siteContent?.whyChoose?.title || 'Why Choose Dream Holidays?'}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We're committed to making your travel dreams come true with exceptional service and unforgettable experiences
+            {siteContent?.whyChoose?.subtitle || "We're committed to making your travel dreams come true with exceptional service and unforgettable experiences"}
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4">
+              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-4 text-2xl">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">{feature.title}</h3>

@@ -1,23 +1,46 @@
 'use client';
 
 import { useState } from 'react';
+import { useContent } from '../context/ContentContext';
+import { useRouter } from 'next/navigation';
 
 const SearchDropdown = () => {
   const [selectedDestination, setSelectedDestination] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const { siteContent } = useContent();
+  const router = useRouter();
 
-  const destinations = [
-    { id: 1, name: 'Santorini, Greece', country: 'Greece' },
-    { id: 2, name: 'Bali, Indonesia', country: 'Indonesia' },
-    { id: 3, name: 'Swiss Alps, Switzerland', country: 'Switzerland' },
-    { id: 4, name: 'Maldives', country: 'Maldives' },
-    { id: 5, name: 'Paris, France', country: 'France' },
-    { id: 6, name: 'Tokyo, Japan', country: 'Japan' },
-    { id: 7, name: 'Dubai, UAE', country: 'UAE' },
-    { id: 8, name: 'New York, USA', country: 'USA' },
-    { id: 9, name: 'London, UK', country: 'UK' },
-    { id: 10, name: 'Rome, Italy', country: 'Italy' },
-  ];
+  // Generate destinations from actual packages data
+  const getDestinationsFromPackages = () => {
+    if (!siteContent?.packages) return [];
+    
+    const destinationMap = new Map();
+    
+    siteContent.packages
+      .filter(pkg => pkg.status === 'active')
+      .forEach(pkg => {
+        const key = pkg.location;
+        if (destinationMap.has(key)) {
+          const existing = destinationMap.get(key);
+          existing.packages += 1;
+        } else {
+          // Extract country from location (assuming format "City, Country")
+          const parts = pkg.location.split(',');
+          const country = parts.length > 1 ? parts[parts.length - 1].trim() : parts[0];
+          
+          destinationMap.set(key, {
+            id: destinationMap.size + 1,
+            name: pkg.location,
+            country: country,
+            packages: 1
+          });
+        }
+      });
+
+    return Array.from(destinationMap.values());
+  };
+
+  const destinations = getDestinationsFromPackages();
 
   const handleDestinationSelect = (destination) => {
     setSelectedDestination(destination.name);
@@ -26,9 +49,10 @@ const SearchDropdown = () => {
 
   const handleSearch = () => {
     if (selectedDestination) {
-      // Navigate to packages page or filter results
-      console.log('Searching for:', selectedDestination);
-      // You can add navigation logic here
+      const searchParams = new URLSearchParams({
+        destination: selectedDestination
+      });
+      router.push(`/search?${searchParams.toString()}`);
     }
   };
 

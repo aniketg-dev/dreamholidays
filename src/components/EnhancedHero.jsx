@@ -2,40 +2,35 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useContent } from '../context/ContentContext';
 
 const EnhancedHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { siteContent, getVisibleHeroSlides } = useContent();
 
-  const slides = [
-    {
-      image: '/hero/destination5.jpg',
-      title: 'Discover Paradise',
-      subtitle: 'Santorini, Greece',
-      description: 'Experience breathtaking sunsets and pristine white architecture',
-      gradient: 'from-white-900/80 to-blue-900/60'
-    },
-    {
-      image: '/hero/destination6.jpg',
-      title: 'Tropical Escape',
-      subtitle: 'Bali, Indonesia',
-      description: 'Immerse yourself in rich culture and stunning beaches',
-      gradient: 'from-white-900/80 to-blue-900/60'
-    },
-    {
-      image: '/hero/destination7.jpg',
-      title: 'Alpine Adventure',
-      subtitle: 'Swiss Alps',
-      description: 'Conquer majestic peaks and pristine mountain landscapes',
-      gradient: 'from-white-900/80 to-blue-900/60'
-    }
-  ];
+  // Get visible slides from context
+  const slides = getVisibleHeroSlides();
 
   useEffect(() => {
+    if (slides.length === 0) return;
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
+
+  // Don't render if no visible slides
+  if (!slides || slides.length === 0) {
+    return (
+      <section className="relative h-screen flex items-center justify-center bg-gray-900">
+        <div className="text-center text-white">
+          <h1 className="text-4xl font-bold mb-4">Welcome to Dream Holidays</h1>
+          <p className="text-xl">No hero slides configured</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -48,7 +43,7 @@ const EnhancedHero = () => {
           }`}
         >
           <Image
-            src={slide.image}
+            src={slide.backgroundImage}
             alt={slide.subtitle}
             fill
             className="object-cover"

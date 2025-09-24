@@ -1,0 +1,426 @@
+{
+  "heroSlides": [
+    {
+      "id": 1,
+      "title": "Discover Paradise",
+      "subtitle": "Make Your Travel Dreams Come True",
+      "description": "Experience breathtaking destinations with our carefully crafted travel packages",
+      "backgroundImage": "/hero/destination5.jpg",
+      "gradient": "from-black/80 to-blue-900/60",
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": 2,
+      "title": "Tropical Escape",
+      "subtitle": "Bali, Indonesia",
+      "description": "Immerse yourself in rich culture and stunning beaches",
+      "backgroundImage": "/hero/destination6.jpg",
+      "gradient": "from-black/80 to-green-900/60",
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": 3,
+      "title": "Alpine Adventure",
+      "subtitle": "Swiss Alps",
+      "description": "Conquer majestic peaks and pristine mountain landscapes",
+      "backgroundImage": "/hero/destination7.jpg",
+      "gradient": "from-black/80 to-gray-900/60",
+      "visible": true,
+      "order": 3
+    }
+  ],
+  "company": {
+    "name": "Dream Holidays",
+    "email": "sales@dreamholidaysonline.in",
+    "phone": "+91 86552 04900",
+    "secondaryPhone": "(022)-2242-5160",
+    "address": "142E, Office No.26, Lal Baba Haveli, Bhuleshwar, Charni Road(E), Mumbai - 400 002.",
+    "visible": true
+  },
+  "stats": {
+    "happyCustomers": 10000,
+    "destinationsServed": 150,
+    "yearsExperience": 15,
+    "toursCompleted": 5000,
+    "visible": true
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Real experiences from real travelers",
+    "reviews": [
+      {
+        "id": 1,
+        "name": "Sarah Johnson",
+        "location": "New York, USA",
+        "rating": 5,
+        "comment": "Absolutely incredible experience! The attention to detail and personalized service made our honeymoon perfect.",
+        "image": "/testimonials/test1.jpeg"
+      },
+      {
+        "id": 2,
+        "name": "Michael Chen",
+        "location": "Toronto, Canada",
+        "rating": 5,
+        "comment": "Professional service and amazing destinations. Highly recommend Dream Holidays for your next adventure!",
+        "image": "/testimonials/test2.jpg"
+      }
+    ],
+    "visible": true
+  },
+  "gallery": {
+    "title": "Explore Amazing Destinations",
+    "subtitle": "Discover breathtaking places around the world",
+    "images": [
+      {
+        "id": 1,
+        "src": "/gallery/image1.jpeg",
+        "alt": "Beautiful destination 1"
+      },
+      {
+        "id": 2,
+        "src": "/gallery/image2.jpg",
+        "alt": "Beautiful destination 2"
+      },
+      {
+        "id": 3,
+        "src": "/gallery/image3.jpg",
+        "alt": "Beautiful destination 3"
+      },
+      {
+        "id": 4,
+        "src": "/gallery/image4.jpg",
+        "alt": "Beautiful destination 4"
+      },
+      {
+        "id": 5,
+        "src": "/gallery/image5.jpg",
+        "alt": "Beautiful destination 5"
+      },
+      {
+        "src": "/gallery/uploads/1757511867706_person1.png",
+        "alt": "pisa ",
+        "id": 1757511877484
+      }
+    ],
+    "visible": true
+  },
+  "whyChoose": {
+    "title": "Why Choose Dream Holidays?",
+    "subtitle": "Your trusted travel partner",
+    "features": [
+      {
+        "id": 1,
+        "title": "Expert Planning",
+        "description": "Our experienced team crafts perfect itineraries",
+        "icon": "🎯"
+      },
+      {
+        "id": 2,
+        "title": "24/7 Support",
+        "description": "Round-the-clock assistance during your travels",
+        "icon": "🆘"
+      },
+      {
+        "id": 3,
+        "title": "Best Prices",
+        "description": "Competitive rates with no hidden fees",
+        "icon": "💰"
+      },
+      {
+        "id": 4,
+        "title": "Local Expertise",
+        "description": "Deep knowledge of destinations worldwide",
+        "icon": "🌍"
+      }
+    ],
+    "visible": true
+  },
+  "contact": {
+    "title": "Plan Your Dream Trip",
+    "subtitle": "Get in touch with our travel experts",
+    "visible": true
+  },
+  "social": {
+    "title": "Follow Our Journey",
+    "subtitle": "Stay connected for travel inspiration",
+    "platforms": [
+      {
+        "name": "Facebook",
+        "url": "#",
+        "icon": "facebook"
+      },
+      {
+        "name": "Instagram",
+        "url": "#",
+        "icon": "instagram"
+      },
+      {
+        "name": "Twitter",
+        "url": "#",
+        "icon": "twitter"
+      },
+      {
+        "name": "YouTube",
+        "url": "#",
+        "icon": "youtube"
+      }
+    ],
+    "posts": {
+      "instagram": [
+        {
+          "id": 1,
+          "platform": "instagram",
+          "author": "@dreamholidays",
+          "time": "2 hours ago",
+          "image": "/gallery/image1.jpeg",
+          "caption": "Paradise found! 🏝️ This stunning beach in Maldives is calling your name. Who's ready for crystal clear waters and white sandy beaches?",
+          "likes": 1247,
+          "comments": 89
+        }
+      ],
+      "facebook": [
+        {
+          "id": 2,
+          "platform": "facebook",
+          "author": "Dream Holidays",
+          "time": "4 hours ago",
+          "content": "Just helped the Johnson family plan their dream European vacation! 🇪🇺 From romantic Paris evenings to the canals of Venice, every moment was perfectly crafted. Ready to plan your next adventure?",
+          "likes": 234,
+          "comments": 18,
+          "shares": 12
+        }
+      ],
+      "twitter": [
+        {
+          "id": 3,
+          "platform": "twitter",
+          "author": "@dreamholidays",
+          "time": "30 minutes ago",
+          "content": "Flash Sale Alert! 🚨 50% off on Bali packages for the next 24 hours only! Limited spots available. Book now and thank us later! #TravelDeals #Bali #DreamHolidays",
+          "likes": 456,
+          "retweets": 123,
+          "comments": 67
+        }
+      ]
+    },
+    "visible": true
+  },
+  "packages": [
+    {
+      "id": 1,
+      "name": "Santorini Paradise",
+      "location": "Santorini, Greece",
+      "price": 1299,
+      "originalPrice": 1599,
+      "duration": "7 Days / 6 Nights",
+      "rating": 4.9,
+      "reviews": 124,
+      "maxPeople": 8,
+      "image": "/gallery/image1.jpeg",
+      "images": [
+        "/gallery/image1.jpeg",
+        "/gallery/image2.jpg",
+        "/gallery/image3.jpg"
+      ],
+      "description": "Experience the breathtaking beauty of Santorini with its iconic white buildings, blue domes, and stunning sunsets over the Aegean Sea.",
+      "highlights": [
+        "Luxury oceanview accommodation",
+        "Private sunset cruise",
+        "Wine tasting at local vineyards",
+        "Guided tour of Oia village",
+        "Traditional Greek cooking class",
+        "Airport transfers included"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Arrival & Welcome",
+          "description": "Airport pickup, hotel check-in, welcome dinner"
+        },
+        {
+          "day": 2,
+          "title": "Oia Exploration",
+          "description": "Guided tour of Oia, sunset viewing, local shopping"
+        },
+        {
+          "day": 3,
+          "title": "Wine & Culture",
+          "description": "Vineyard tours, wine tasting, cultural experiences"
+        },
+        {
+          "day": 4,
+          "title": "Beach Day",
+          "description": "Relaxation at Red Beach, swimming, beachside lunch"
+        },
+        {
+          "day": 5,
+          "title": "Cruise Adventure",
+          "description": "Private sunset cruise, dinner on board"
+        },
+        {
+          "day": 6,
+          "title": "Cooking & Leisure",
+          "description": "Greek cooking class, free time for shopping"
+        },
+        {
+          "day": 7,
+          "title": "Departure",
+          "description": "Hotel checkout, airport transfer"
+        }
+      ],
+      "included": [
+        "Accommodation",
+        "Meals",
+        "Transportation",
+        "Tours",
+        "Activities"
+      ],
+      "notIncluded": [
+        "International flights",
+        "Travel insurance",
+        "Personal expenses"
+      ],
+      "featured": true,
+      "category": "Luxury",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "Bali Adventure",
+      "location": "Bali, Indonesia",
+      "price": 899,
+      "originalPrice": 1199,
+      "duration": "10 Days / 9 Nights",
+      "rating": 4.7,
+      "reviews": 98,
+      "maxPeople": 12,
+      "image": "/gallery/image2.jpg",
+      "images": [
+        "/gallery/image2.jpg",
+        "/gallery/image1.jpeg",
+        "/gallery/image3.jpg"
+      ],
+      "description": "Discover the magic of Bali with its beautiful beaches, ancient temples, lush rice terraces, and vibrant cultural experiences.",
+      "highlights": [
+        "Beachfront resort accommodation",
+        "Temple hopping tours",
+        "Rice terrace trekking",
+        "Traditional dance performances",
+        "Balinese cooking workshop",
+        "Spa treatments included"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Arrival in Bali",
+          "description": "Airport transfer, hotel check-in, welcome ceremony"
+        },
+        {
+          "day": 2,
+          "title": "Ubud Cultural Tour",
+          "description": "Visit temples, art villages, and rice terraces"
+        },
+        {
+          "day": 3,
+          "title": "Adventure Day",
+          "description": "White water rafting and jungle trekking"
+        },
+        {
+          "day": 4,
+          "title": "Beach Relaxation",
+          "description": "Free day at beautiful beaches"
+        },
+        {
+          "day": 5,
+          "title": "Cooking & Spa",
+          "description": "Cooking class and traditional spa treatments"
+        }
+      ],
+      "included": [
+        "Accommodation",
+        "Most meals",
+        "Tours",
+        "Activities",
+        "Spa"
+      ],
+      "notIncluded": [
+        "International flights",
+        "Some meals",
+        "Personal expenses"
+      ],
+      "featured": false,
+      "category": "Adventure",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "name": "Swiss Alps Escape",
+      "location": "Swiss Alps, Switzerland",
+      "price": 1599,
+      "originalPrice": 1999,
+      "duration": "8 Days / 7 Nights",
+      "rating": 4.9,
+      "reviews": 87,
+      "maxPeople": 6,
+      "image": "/gallery/image3.jpg",
+      "images": [
+        "/gallery/image3.jpg",
+        "/gallery/image1.jpeg",
+        "/gallery/image2.jpg"
+      ],
+      "description": "Adventure awaits in the majestic Swiss Alps with pristine mountain lakes, snow-capped peaks, and charming alpine villages.",
+      "highlights": [
+        "Mountain lodge accommodation",
+        "Cable car rides",
+        "Alpine hiking trails",
+        "Lake boat cruises",
+        "Traditional Swiss cuisine",
+        "Photography workshops"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Arrival in Zurich",
+          "description": "Transfer to alpine resort, welcome dinner"
+        },
+        {
+          "day": 2,
+          "title": "Jungfraujoch",
+          "description": "Top of Europe excursion"
+        },
+        {
+          "day": 3,
+          "title": "Lake Cruise",
+          "description": "Scenic boat ride and village visits"
+        },
+        {
+          "day": 4,
+          "title": "Hiking Day",
+          "description": "Alpine trails and mountain photography"
+        },
+        {
+          "day": 5,
+          "title": "Adventure Activities",
+          "description": "Paragliding and mountain biking options"
+        }
+      ],
+      "included": [
+        "Accommodation",
+        "Meals",
+        "Cable cars",
+        "Tours",
+        "Activities"
+      ],
+      "notIncluded": [
+        "International flights",
+        "Travel insurance",
+        "Personal gear"
+      ],
+      "featured": true,
+      "category": "Adventure",
+      "status": "active"
+    }
+  ]
+}

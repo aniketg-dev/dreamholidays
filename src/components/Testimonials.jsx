@@ -2,36 +2,38 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Aisha K.',
-    text: 'Our trip was flawless. Dream Holidays took care of everything and exceeded expectations.',
-    image: '/testimonials/test1.jpeg',
-    location: 'Santorini, Greece',
-    rating: 5
-  },
-  {
-    id: 2,
-    name: 'Carlos M.',
-    text: 'Amazing service and great value. Will book again!',
-    image: '/testimonials/test2.jpg',
-    location: 'Bali, Indonesia',
-    rating: 5
-  },
-  {
-    id: 3,
-    name: 'Priya S.',
-    text: 'Beautifully planned itinerary and friendly guides. Highly recommend.',
-    image: '/testimonials/test3.jpg',
-    location: 'Swiss Alps',
-    rating: 5
-  }
-];
+import { useContent } from '../context/ContentContext';
 
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { siteContent } = useContent();
+
+  const testimonials = siteContent?.testimonials?.reviews || [
+    {
+      id: 1,
+      name: 'Aisha K.',
+      comment: 'Our trip was flawless. Dream Holidays took care of everything and exceeded expectations.',
+      image: '/testimonials/test1.jpeg',
+      location: 'Santorini, Greece',
+      rating: 5
+    },
+    {
+      id: 2,
+      name: 'Carlos M.',
+      comment: 'Amazing service and great value. Will book again!',
+      image: '/testimonials/test2.jpg',
+      location: 'Bali, Indonesia',
+      rating: 5
+    },
+    {
+      id: 3,
+      name: 'Priya S.',
+      comment: 'Beautifully planned itinerary and friendly guides. Highly recommend.',
+      image: '/testimonials/test3.jpg',
+      location: 'Swiss Alps',
+      rating: 5
+    }
+  ];
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) => 
@@ -110,7 +112,7 @@ const Testimonials = () => {
                       <StarRating rating={testimonial.rating} />
                       
                       <blockquote className="text-base sm:text-lg lg:text-xl text-gray-700 mb-4 sm:mb-6 text-center lg:text-left leading-relaxed font-medium">
-                        "{testimonial.text}"
+                        "{testimonial.comment}"
                       </blockquote>
                       
                       <div className="text-center lg:text-left">
