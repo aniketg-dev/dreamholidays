@@ -1,4 +1,4 @@
-# Dream Holidays - Travel Website
+# Charika Tours and Travels - Travel Website
 
 A modern, responsive travel website built with Next.js 15, featuring dynamic content management, beautiful UI components, and an admin panel for easy content updates.
 
@@ -206,4 +206,4 @@ For support or questions:
 
 ---
 
-**Dream Holidays** - Making your travel dreams come true! ✈️🌍
+**Charika Tours and Travels** - Making your travel dreams come true! ✈️🌍

@@ -12,7 +12,7 @@ const Testimonials = () => {
     {
       id: 1,
       name: 'Aisha K.',
-      comment: 'Our trip was flawless. Dream Holidays took care of everything and exceeded expectations.',
+      comment: 'Our trip was flawless. Charika Tours and Travels took care of everything and exceeded expectations.',
       image: '/testimonials/test1.jpeg',
       location: 'Santorini, Greece',
       rating: 5

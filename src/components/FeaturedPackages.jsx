@@ -67,7 +67,7 @@ const PackageCard = ({ package: pkg, onEdit }) => {
         
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex flex-col">
-            <span className="text-2xl sm:text-3xl font-bold text-blue-600">${pkg.price}</span>
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600">₹{pkg.price.toLocaleString('en-IN')}</span>
             <span className="text-xs sm:text-sm text-gray-500">per person</span>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
@@ -99,7 +99,7 @@ const FeaturedPackages = ({ packages = [], isAdmin = false, onEdit }) => {
       name: 'Santorini Paradise',
       image: '/gallery/image1.jpeg',
       description: 'Experience the breathtaking beauty of Santorini with its iconic white buildings, blue domes, and stunning sunsets over the Aegean Sea.',
-      price: 1299,
+      price: 109900,
       duration: '7 Days',
       rating: 5,
       reviews: 124,
@@ -112,7 +112,7 @@ const FeaturedPackages = ({ packages = [], isAdmin = false, onEdit }) => {
       name: 'Bali Adventure',
       image: '/gallery/image2.jpg',
       description: 'Discover the magic of Bali with its beautiful beaches, ancient temples, lush rice terraces, and vibrant cultural experiences.',
-      price: 899,
+      price: 75900,
       duration: '10 Days',
       rating: 4,
       reviews: 98,
@@ -125,7 +125,7 @@ const FeaturedPackages = ({ packages = [], isAdmin = false, onEdit }) => {
       name: 'Swiss Alps Escape',
       image: '/gallery/image3.jpg',
       description: 'Adventure awaits in the majestic Swiss Alps with pristine mountain lakes, snow-capped peaks, and charming alpine villages.',
-      price: 1599,
+      price: 134900,
       duration: '8 Days',
       rating: 5,
       reviews: 87,

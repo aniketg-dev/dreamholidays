@@ -1,7 +1,7 @@
-# Dream Holidays CMS - Content Management System
+# Charika Tours and Travels CMS - Content Management System
 
 ## Overview
-This project implements a simple yet powerful Content Management System (CMS) for the Dream Holidays website. The system allows you to manage all website content through an admin panel with persistent file-based storage.
+This project implements a simple yet powerful Content Management System (CMS) for the Charika Tours and Travels website. The system allows you to manage all website content through an admin panel with persistent file-based storage.
 
 ## Project Structure
 

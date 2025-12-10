@@ -1,6 +1,6 @@
 # Hero Slides Management System
 
-This document describes the new hero slides management system implemented for the Dream Holidays website.
+This document describes the new hero slides management system implemented for the Charika Tours and Travels website.
 
 ## Features
 

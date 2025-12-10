@@ -25,7 +25,7 @@ const EnhancedHero = () => {
     return (
       <section className="relative h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center text-white">
-          <h1 className="text-4xl font-bold mb-4">Welcome to Dream Holidays</h1>
+          <h1 className="text-4xl font-bold mb-4">Welcome to Charika Tours and Travels</h1>
           <p className="text-xl">No hero slides configured</p>
         </div>
       </section>

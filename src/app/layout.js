@@ -13,17 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Dream Holidays - Your Perfect Vacation Awaits",
-  description: "Discover amazing destinations and create unforgettable memories with Dream Holidays. Explore our handpicked selection of travel packages worldwide.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes",
+  title: "Charika Tours and Travels - Your Perfect Vacation Awaits",
+  description: "Discover amazing destinations and create unforgettable memories with Charika Tours and Travels. Explore our handpicked selection of travel packages worldwide.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
         style={{ maxWidth: '100vw' }}

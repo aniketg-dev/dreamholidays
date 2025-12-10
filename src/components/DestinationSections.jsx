@@ -92,7 +92,7 @@ const PopularDestinations = () => {
             Popular Destinations
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our most loved travel packages and create unforgettable memories with Dream Holidays
+            Discover our most loved travel packages and create unforgettable memories with Charika Tours and Travels
           </p>
         </div>
         
@@ -149,7 +149,7 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            {siteContent?.whyChoose?.title || 'Why Choose Dream Holidays?'}
+            {siteContent?.whyChoose?.title || 'Why Choose Charika Tours and Travels?'}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {siteContent?.whyChoose?.subtitle || "We're committed to making your travel dreams come true with exceptional service and unforgettable experiences"}

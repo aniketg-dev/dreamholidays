@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '../../../components/Header';
@@ -8,44 +8,63 @@ import Header from '../../../components/Header';
 const PackageDetails = ({ params }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [packageData, setPackageData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // params may be a Promise in newer Next.js versions — unwrap with React.use()
   const resolvedParams = React.use(params);
-  const packageId = resolvedParams?.id || 1;
+  const packageId = parseInt(resolvedParams?.id || 1);
 
-  // Mock data - in real app this would come from API/database
-  const packageData = {
-  id: packageId,
-    name: 'Santorini Paradise',
-    location: 'Santorini, Greece',
-    price: 1299,
-    originalPrice: 1599,
-    duration: '7 Days / 6 Nights',
-    rating: 4.9,
-    reviews: 124,
-    maxPeople: 8,
-    images: ['/destination1.jpg', '/destination2.jpg', '/destination3.jpg'],
-    description: 'Experience the breathtaking beauty of Santorini with its iconic white buildings, blue domes, and stunning sunsets over the Aegean Sea. This carefully crafted itinerary includes luxury accommodations, guided tours, and unforgettable experiences.',
-    highlights: [
-      'Luxury oceanview accommodation',
-      'Private sunset cruise',
-      'Wine tasting at local vineyards',
-      'Guided tour of Oia village',
-      'Traditional Greek cooking class',
-      'Airport transfers included'
-    ],
-    itinerary: [
-      { day: 1, title: 'Arrival & Welcome', description: 'Airport pickup, hotel check-in, welcome dinner' },
-      { day: 2, title: 'Oia Exploration', description: 'Guided tour of Oia, sunset viewing, local shopping' },
-      { day: 3, title: 'Wine & Culture', description: 'Vineyard tours, wine tasting, cultural experiences' },
-      { day: 4, title: 'Beach Day', description: 'Relaxation at Red Beach, swimming, beachside lunch' },
-      { day: 5, title: 'Cruise Adventure', description: 'Private sunset cruise, dinner on board' },
-      { day: 6, title: 'Cooking & Leisure', description: 'Greek cooking class, free time for shopping' },
-      { day: 7, title: 'Departure', description: 'Hotel checkout, airport transfer' }
-    ],
-    included: ['Accommodation', 'Meals', 'Transportation', 'Tours', 'Activities'],
-    notIncluded: ['International flights', 'Travel insurance', 'Personal expenses']
-  };
+  useEffect(() => {
+    const fetchPackage = async () => {
+      try {
+        const res = await fetch('/api/config');
+        const data = await res.json();
+        const pkg = data.data.packages.find(p => p.id === packageId);
+        
+        if (pkg) {
+          setPackageData(pkg);
+        } else {
+          // Fallback to first package if not found
+          setPackageData(data.data.packages[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching package:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPackage();
+  }, [packageId]);
+
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 pt-24 pb-8">
+          <div className="text-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading package details...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!packageData) {
+    return (
+      <div>
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 pt-24 pb-8">
+          <div className="text-center py-20">
+            <p className="text-gray-600">Package not found</p>
+            <Link href="/" className="text-blue-600 hover:underline mt-4 inline-block">Return to Home</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const BookingForm = () => (
     <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
@@ -192,11 +211,15 @@ const PackageDetails = ({ params }) => {
             <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-30">
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-3xl font-bold text-blue-600">${packageData.price}</span>
-                  <span className="text-lg text-gray-500 line-through">${packageData.originalPrice}</span>
+                  <span className="text-3xl font-bold text-blue-600">₹{packageData.price.toLocaleString('en-IN')}</span>
+                  {packageData.originalPrice && (
+                    <span className="text-lg text-gray-500 line-through">₹{packageData.originalPrice.toLocaleString('en-IN')}</span>
+                  )}
                 </div>
                 <span className="text-sm text-gray-600">per person</span>
-                <div className="text-sm text-green-600 font-medium">Save ${packageData.originalPrice - packageData.price}</div>
+                {packageData.originalPrice && (
+                  <div className="text-sm text-green-600 font-medium">Save ₹{(packageData.originalPrice - packageData.price).toLocaleString('en-IN')}</div>
+                )}
               </div>
 
               <button 

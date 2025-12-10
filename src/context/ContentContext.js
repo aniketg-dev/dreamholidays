@@ -47,11 +47,11 @@ export const ContentProvider = ({ children }) => {
       }
     ],
     company: {
-      name: 'Dream Holidays',
-      email: 'sales@dreamholidaysonline.in',
+      name: 'Charika Tours and Travels',
+      email: 'charikaworld8@gmail.com',
       phone: '+91 86552 04900',
-      secondaryPhone: '(022)-2242-5160',
-      address: '142E, Office No.26, Lal Baba Haveli, Bhuleshwar, Charni Road(E), Mumbai - 400 002.',
+      secondaryPhone: '+91 86552 04900',
+      address: 'near Best staff quarters, Best Colony, Amrut Nagar, Ghatkopar West, Mumbai, Maharashtra 400086',
       visible: true
     },
     stats: {
@@ -78,7 +78,7 @@ export const ContentProvider = ({ children }) => {
           name: 'Michael Chen',
           location: 'Toronto, Canada',
           rating: 5,
-          comment: 'Professional service and amazing destinations. Highly recommend Dream Holidays for your next adventure!',
+          comment: 'Professional service and amazing destinations. Highly recommend Charika Tours and Travels for your next adventure!',
           image: '/testimonials/test2.jpg'
         }
       ],
@@ -97,7 +97,7 @@ export const ContentProvider = ({ children }) => {
       visible: true
     },
     whyChoose: {
-      title: 'Why Choose Dream Holidays?',
+      title: 'Why Choose Charika Tours and Travels?',
       subtitle: 'Your trusted travel partner',
       features: [
         {
@@ -158,7 +158,7 @@ export const ContentProvider = ({ children }) => {
           {
             id: 2,
             platform: 'facebook',
-            author: 'Dream Holidays',
+            author: 'Charika Tours and Travels',
             time: '4 hours ago',
             content: 'Just helped the Johnson family plan their dream European vacation! 🇪🇺 From romantic Paris evenings to the canals of Venice, every moment was perfectly crafted. Ready to plan your next adventure?',
             likes: 234,

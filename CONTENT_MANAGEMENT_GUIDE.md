@@ -1,7 +1,7 @@
 # Complete Content Management System - User Guide
 
 ## Overview
-Your Dream Holidays website now has a comprehensive content management system that allows you to control every aspect of your website content, including visibility toggles for each section.
+Your Charika Tours and Travels website now has a comprehensive content management system that allows you to control every aspect of your website content, including visibility toggles for each section.
 
 ## 🎯 **Key Features**
 

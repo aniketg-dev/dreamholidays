@@ -32,11 +32,12 @@
     }
   ],
   "company": {
-    "name": "Dream Holidays",
-    "email": "sales@dreamholidaysonline.in",
+    "name": "Charika Tours And Travels",
+    "logo": "/logo/cttlogo-bg.png",
+    "email": "charikaworld8@gmail.com",
     "phone": "+91 86552 04900",
-    "secondaryPhone": "(022)-2242-5160",
-    "address": "142E, Office No.26, Lal Baba Haveli, Bhuleshwar, Charni Road(E), Mumbai - 400 002.",
+    "secondaryPhone": "+91 083559 04764",
+    "address": "near Best staff quarters, Best Colony, Amrut Nagar, Ghatkopar West, Mumbai, Maharashtra 400086",
     "visible": true
   },
   "stats": {
@@ -63,7 +64,7 @@
         "name": "Michael Chen",
         "location": "Toronto, Canada",
         "rating": 5,
-        "comment": "Professional service and amazing destinations. Highly recommend Dream Holidays for your next adventure!",
+        "comment": "Professional service and amazing destinations. Highly recommend Charika Tours and Travels for your next adventure!",
         "image": "/testimonials/test2.jpg"
       }
     ],
@@ -97,17 +98,12 @@
         "id": 5,
         "src": "/gallery/image5.jpg",
         "alt": "Beautiful destination 5"
-      },
-      {
-        "src": "/gallery/uploads/1757511867706_person1.png",
-        "alt": "pisa ",
-        "id": 1757511877484
       }
     ],
     "visible": true
   },
   "whyChoose": {
-    "title": "Why Choose Dream Holidays?",
+    "title": "Why Choose Charika Tours And Travels?",
     "subtitle": "Your trusted travel partner",
     "features": [
       {
@@ -142,13 +138,55 @@
     "subtitle": "Get in touch with our travel experts",
     "visible": true
   },
+  "footer": {
+    "logo": "/logo/cttlogo-bg.png",
+    "about": "Your trusted travel partner for unforgettable journeys around the world.",
+    "quickLinks": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Packages",
+        "href": "/packages"
+      },
+      {
+        "label": "About Us",
+        "href": "/about"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "destinations": [
+      {
+        "label": "Europe",
+        "href": "#"
+      },
+      {
+        "label": "Asia",
+        "href": "#"
+      },
+      {
+        "label": "Americas",
+        "href": "#"
+      },
+      {
+        "label": "Africa",
+        "href": "#"
+      }
+    ],
+    "copyright": "Charika Tours and Travels . All rights reserved.",
+    "visible": true
+  },
   "social": {
     "title": "Follow Our Journey",
     "subtitle": "Stay connected for travel inspiration",
     "platforms": [
       {
         "name": "Facebook",
-        "url": "#",
+        "url": "https://www.facebook.com/people/Charika-Travels/100066759651183/",
         "icon": "facebook"
       },
       {
@@ -184,7 +222,7 @@
         {
           "id": 2,
           "platform": "facebook",
-          "author": "Dream Holidays",
+          "author": "Charika Tours and Travels",
           "time": "4 hours ago",
           "content": "Just helped the Johnson family plan their dream European vacation! 🇪🇺 From romantic Paris evenings to the canals of Venice, every moment was perfectly crafted. Ready to plan your next adventure?",
           "likes": 234,
@@ -350,7 +388,7 @@
         "Some meals",
         "Personal expenses"
       ],
-      "featured": false,
+      "featured": true,
       "category": "Adventure",
       "status": "active"
     },

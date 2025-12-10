@@ -7,7 +7,7 @@ const testimonials = [
   {
     id: 1,
     name: 'Aisha K.',
-    text: 'Our trip was flawless. Dream Holidays took care of everything and exceeded expectations.',
+    text: 'Our trip was flawless. Charika Tours and Travels took care of everything and exceeded expectations.',
     image: '/destination1.jpg',
     location: 'Santorini, Greece',
     rating: 5
