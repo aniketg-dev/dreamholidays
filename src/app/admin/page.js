@@ -80,11 +80,11 @@ export default function AdminDashboard() {
 
       <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-blue-900 mb-2">📝 Quick Tips</h3>
-        <ul className="text-blue-800 space-y-2 text-sm">
+          <ul className="text-blue-800 space-y-2 text-sm">
           <li>• All changes are saved to <code className="bg-blue-100 px-2 py-1 rounded">site-config.json</code></li>
           <li>• Images are uploaded to their respective folders in <code className="bg-blue-100 px-2 py-1 rounded">/public</code></li>
           <li>• Changes appear immediately on the live site</li>
-          <li>• Use the "View Site" link to preview your changes</li>
+          <li>• Use the &quot;View Site&quot; link to preview your changes</li>
         </ul>
       </div>
     </div>

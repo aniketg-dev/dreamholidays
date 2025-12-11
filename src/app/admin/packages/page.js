@@ -367,7 +367,7 @@ export default function PackagesManagement() {
 
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  What's Included (one per line)
+                  What&apos;s Included (one per line)
                 </label>
                 <textarea
                   value={editingPackage.included?.join("\n") || ""}
@@ -499,7 +499,7 @@ export default function PackagesManagement() {
                   ))}
                   {(!editingPackage.itinerary || editingPackage.itinerary.length === 0) && (
                     <p className="text-xs text-gray-500">
-                      No itinerary days added yet. Use "+ Add Day" to create one.
+                      No itinerary days added yet. Use &quot;+ Add Day&quot; to create one.
                     </p>
                   )}
                 </div>
