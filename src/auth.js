@@ -45,6 +45,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
+      // Ensure `session.user` exists before assigning properties to avoid
+      // "Cannot read properties of undefined" errors when NextAuth
+      // returns a session without a `user` object.
+      session.user = session.user ?? {};
       if (token) {
         session.user.role = token.role;
         session.user.username = token.username;
